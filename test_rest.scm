@@ -19,8 +19,6 @@
     (assert (> (size (car response)) 0) ===> #true)
     (display "ok \n")))
 
-
-
 (define tests 
  (list 
   test-rest-get

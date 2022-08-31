@@ -18,7 +18,6 @@
 
 
    (define (build-params params)
-     (print (length params))
      (if (> (length params) 0)
          (let* ((body (fold
                        (lambda (state a)
@@ -28,7 +27,6 @@
                                  (string-append state "," (quotes (car a)) ": " (quotes (car (cdr a)))))
                              state)) "" params))
                 (body-brackets (string-append "'{" body "}'")))
-           (print body)
            body-brackets)
          "'{}'"))
 
@@ -49,22 +47,20 @@
   (define (build-url url params)
     (string-append url (build-params-header params)))
 
-    (define (build-command method address params)
-      (let ((headers (get params 'headers #f))
-            (data (get params 'data #f)))
-        (list "curl" "-s" "-X" method address (if headers "-H" "") (if headers headers "")
-          (if data "--data" "") (if data data ""))
-       ))
+  (define (build-command method address params)
+    (let ((headers (get params 'headers #f))
+          (data (get params 'data #f)))
+      (list "curl" "-s" "-X" method address (if headers "-H" "") (if headers headers "")
+        (if data "--data" "") (if data data ""))))
 
-    (define REST
-      (case-lambda 
-        ((method address params)
-          (let* ((prepared-command (build-command method address params))
-                 (result (make-cmd CURL prepared-command parse-string)))
-            result))
-        ((method address params parser)
-          (let* ((prepared-command (build-command method address params))
-                 (result (make-cmd CURL prepared-command parser)))
-            result))))
-  )
- )
+  (define REST
+    (case-lambda 
+      ((method address params)
+        (let* ((prepared-command (build-command method address params))
+                (result (make-cmd CURL prepared-command parse-string)))
+          result))
+      ((method address params parser)
+        (let* ((prepared-command (build-command method address params))
+              (result (make-cmd CURL prepared-command parser)))
+          result))))
+  ))
