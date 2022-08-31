@@ -1,0 +1,10 @@
+{
+  "name": "request",
+  "author": "v_m_v",
+  "license": "MIT",
+  "deps": [
+    "https://github.com/the-man-with-a-golden-mind/cmd",
+    "https://github.com/the-man-with-a-golden-mind/parsers"
+  ]
+}
+
