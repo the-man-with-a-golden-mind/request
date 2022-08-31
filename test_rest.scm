@@ -19,9 +19,26 @@
     (assert (> (size (car response)) 0) ===> #true)
     (display "ok \n")))
 
+
+(define test-build-params-header 
+  (display "Testing budiling params for header...")
+  (let* ((result (build-params-header (list (list "param1" "param1_1") (list "param2" "param2_2")))))
+    (assert result ===> "?param1=param1_1&param2=param2_2")
+    (display "ok \n")))
+
+
+(define test-build-params 
+  (display "Testing budiling params for header...")
+  (let* ((result (build-params (list (list "param1" "param1_1") (list "param2" "param2_2")))))
+    (assert result ===> "'{\"param1\": \"param1_1\",\"param2\": \"param2_2\"}'")
+    (display "ok \n")))
+
+
 (define tests 
  (list 
   test-rest-get
+  test-build-params
+  test-build-params-header
   test-rest-get-with-query-string))
 
 (await (map (lambda (test) (async (lambda () test))) tests))
