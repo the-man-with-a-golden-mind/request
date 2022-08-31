@@ -61,7 +61,7 @@
         ((method address params)
           (let* ((prepared-command (build-command method address params))
                  (result (make-cmd CURL prepared-command parse-string)))
-          result))
+            result))
         ((method address params parser)
           (let* ((prepared-command (build-command method address params))
                  (result (make-cmd CURL prepared-command parser)))
