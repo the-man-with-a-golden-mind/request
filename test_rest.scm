@@ -8,14 +8,14 @@
 
 (define test-rest-get
   (display "Testing REST GET without params...")
-  (let* ((response (GET "https://dummyjson.com/products/1" #empty get-json)))
+  (let* ((response (REST "GET" "https://dummyjson.com/products/1" #empty get-json)))
     (assert (> (size (car response)) 0) ===> #true)
     (display "ok \n")))
 
 (define test-rest-get-with-query-string
   (display "Testing REST GET without params, with query string...")
   (let* ((url (build-url "https://dummyjson.com/products/search" (list (list "q" "Laptop"))))
-         (response (GET url #empty get-json)))
+         (response (REST "GET" url #empty get-json)))
     (assert (> (size (car response)) 0) ===> #true)
     (display "ok \n")))
 

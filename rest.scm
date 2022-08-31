@@ -4,7 +4,7 @@
   (import (parsers parsers))
 
   (export 
-   GET
+   REST
    build-url
    build-params
    build-params-header)
@@ -56,19 +56,15 @@
           (if data "--data" "") (if data data ""))
        ))
 
-    (define GET
+    (define REST
       (case-lambda 
-        ((address params)
-          (let* ((prepared-command (build-command "GET" address params))
+        ((method address params)
+          (let* ((prepared-command (build-command method address params))
                  (result (make-cmd CURL prepared-command parse-string)))
-          result
-           ))
-        ((address params parser)
-          (let* ((prepared-command (build-command "GET" address params))
+          result))
+        ((method address params parser)
+          (let* ((prepared-command (build-command method address params))
                  (result (make-cmd CURL prepared-command parser)))
-            result
-          ))
-      )
-      )
+            result))))
   )
  )
